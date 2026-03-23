@@ -179,7 +179,7 @@ LTI se posiciona como la solución ideal para empresas de entre 50 y 5.000 emple
 
 ## 4. Lean Canvas
 
-```
+```text
 +---------------------+---------------------+---------------------+
 |   PROBLEMA          |   SOLUCION          |  PROPUESTA DE VALOR |
 |                     |                     |       UNICA         |
