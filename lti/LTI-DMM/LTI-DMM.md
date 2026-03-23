@@ -2,13 +2,13 @@
 
 ## Índice
 
-1. [Investigación y Análisis](#1-investigacion-y-analisis)
-2. [Descripción del Software LTI](#2-descripcion-del-software-lti)
+1. [Investigación y Análisis](#1-investigación-y-análisis)
+2. [Descripción del Software LTI](#2-descripción-del-software-lti)
 3. [Funciones Principales](#3-funciones-principales)
 4. [Lean Canvas](#4-lean-canvas)
 5. [Casos de Uso Principales](#5-casos-de-uso-principales)
 6. [Modelo de Datos](#6-modelo-de-datos)
-7. [Diseño del Sistema a Alto Nivel](#7-diseno-del-sistema-a-alto-nivel)
+7. [Diseño del Sistema a Alto Nivel](#7-diseño-del-sistema-a-alto-nivel)
 8. [Diagrama C4](#8-diagrama-c4)
 
 ---
