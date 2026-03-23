@@ -6,7 +6,7 @@ A continuación se documentan todos los prompts utilizados con Claude (Anthropic
 
 ## Prompt 1: Investigación, análisis y requisitos iniciales
 
-```
+```text
 Actúa como un Product Manager senior especializado en HR Tech y diseño de productos SaaS B2B.
 
 Estoy definiendo LTI, una startup que quiere construir el ATS del futuro. Antes de diseñar funcionalidades, necesito una fase de investigación y análisis que incluya:
@@ -19,13 +19,13 @@ Estoy definiendo LTI, una startup que quiere construir el ATS del futuro. Antes 
 6. Recomendación buy vs build: qué capacidades conviene construir y cuáles integrar
 
 Devuélvelo en formato claro para incorporarlo a una documentación de análisis y diseño de sistema.
-```
+```text
 
 ---
 
 ## Prompt 2: Descripción del software, valor añadido y ventajas competitivas
 
-```
+```text
 Actúa como un Product Manager senior especializado en software de recursos humanos (HR Tech).
 
 Estoy creando una startup llamada LTI que quiere desarrollar el ATS (Applicant-Tracking System) del futuro. Necesito que me ayudes a definir:
@@ -41,13 +41,13 @@ Ten en cuenta que queremos enfocarnos en:
 - Asistencia de IA en diversas tareas (screening de CVs, generación de descripciones de puesto, análisis predictivo de candidatos)
 
 Sé específico y orientado al mercado actual de 2025-2026.
-```
+```text
 
 ---
 
 ## Prompt 3: Funciones principales del sistema
 
-```
+```text
 Continuando con el diseño de LTI (ATS del futuro), necesito que detalles las funciones principales del sistema organizadas por módulos funcionales. Para cada función incluye:
 
 - Nombre de la función
@@ -63,13 +63,13 @@ Organiza las funciones en estos módulos:
 6. Administración y configuración
 
 Quiero entre 3-5 funciones por módulo.
-```
+```text
 
 ---
 
 ## Prompt 4: Diagrama Lean Canvas
 
-```
+```text
 Genera un diagrama Lean Canvas en formato Mermaid para LTI, el ATS del futuro. El Lean Canvas debe cubrir los 9 bloques:
 
 1. Problema: Los 3 principales problemas que resuelve LTI
@@ -83,7 +83,7 @@ Genera un diagrama Lean Canvas en formato Mermaid para LTI, el ATS del futuro. E
 9. Ventaja injusta: Qué tenemos que no se puede copiar fácilmente
 
 Genera el diagrama en formato tabla Mermaid o en texto estructurado que sea visualmente claro en Markdown.
-```
+```text
 
 ---
 
