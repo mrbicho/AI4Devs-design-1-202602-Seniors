@@ -512,6 +512,7 @@ UC6 .> UC7 : <<include>>
 ### 6.1 Entidades y Atributos
 
 #### Company (Empresa)
+
 | Atributo | Tipo | Descripción |
 |----------|------|-------------|
 | id | UUID | PK - Identificador único |
@@ -524,6 +525,7 @@ UC6 .> UC7 : <<include>>
 | updated_at | TIMESTAMP | Fecha de actualización |
 
 #### Department (Departamento)
+
 | Atributo | Tipo | Descripción |
 |----------|------|-------------|
 | id | UUID | PK |
@@ -533,6 +535,7 @@ UC6 .> UC7 : <<include>>
 | created_at | TIMESTAMP | Fecha de creación |
 
 #### User (Usuario)
+
 | Atributo | Tipo | Descripción |
 |----------|------|-------------|
 | id | UUID | PK |
@@ -547,6 +550,7 @@ UC6 .> UC7 : <<include>>
 | created_at | TIMESTAMP | Fecha de creación |
 
 #### JobPosition (Posición / Oferta)
+
 | Atributo | Tipo | Descripción |
 |----------|------|-------------|
 | id | UUID | PK |
@@ -570,6 +574,7 @@ UC6 .> UC7 : <<include>>
 | updated_at | TIMESTAMP | Fecha de actualización |
 
 #### PipelineStage (Etapa del Pipeline)
+
 | Atributo | Tipo | Descripción |
 |----------|------|-------------|
 | id | UUID | PK |
@@ -581,6 +586,7 @@ UC6 .> UC7 : <<include>>
 | created_at | TIMESTAMP | Fecha de creación |
 
 #### Candidate (Candidato)
+
 | Atributo | Tipo | Descripción |
 |----------|------|-------------|
 | id | UUID | PK |
@@ -598,6 +604,7 @@ UC6 .> UC7 : <<include>>
 | updated_at | TIMESTAMP | Fecha de actualización |
 
 #### Application (Candidatura)
+
 | Atributo | Tipo | Descripción |
 |----------|------|-------------|
 | id | UUID | PK |
@@ -612,6 +619,7 @@ UC6 .> UC7 : <<include>>
 | updated_at | TIMESTAMP | Fecha de actualización |
 
 #### Interview (Entrevista)
+
 | Atributo | Tipo | Descripción |
 |----------|------|-------------|
 | id | UUID | PK |
@@ -627,6 +635,7 @@ UC6 .> UC7 : <<include>>
 | created_at | TIMESTAMP | Fecha de creación |
 
 #### Scorecard (Evaluación)
+
 | Atributo | Tipo | Descripción |
 |----------|------|-------------|
 | id | UUID | PK |
@@ -640,6 +649,7 @@ UC6 .> UC7 : <<include>>
 | created_at | TIMESTAMP | Fecha de creación |
 
 #### ScorecardCriteria (Criterios de la Evaluación)
+
 | Atributo | Tipo | Descripción |
 |----------|------|-------------|
 | id | UUID | PK |
@@ -649,6 +659,7 @@ UC6 .> UC7 : <<include>>
 | comment | TEXT | Comentario del criterio |
 
 #### Comment (Comentario/Nota)
+
 | Atributo | Tipo | Descripción |
 |----------|------|-------------|
 | id | UUID | PK |
@@ -660,6 +671,7 @@ UC6 .> UC7 : <<include>>
 | updated_at | TIMESTAMP | Fecha de actualización |
 
 #### Notification (Notificación)
+
 | Atributo | Tipo | Descripción |
 |----------|------|-------------|
 | id | UUID | PK |
@@ -673,6 +685,7 @@ UC6 .> UC7 : <<include>>
 | created_at | TIMESTAMP | Fecha de creación |
 
 #### AutomationRule (Regla de Automatización)
+
 | Atributo | Tipo | Descripción |
 |----------|------|-------------|
 | id | UUID | PK |
