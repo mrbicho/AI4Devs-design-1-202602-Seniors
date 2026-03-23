@@ -1,179 +1,179 @@
 # LTI - Applicant Tracking System del Futuro
 
-## Indice
+## Índice
 
-1. [Investigacion y Analisis](#1-investigacion-y-analisis)
-2. [Descripcion del Software LTI](#2-descripcion-del-software-lti)
+1. [Investigación y Análisis](#1-investigacion-y-analisis)
+2. [Descripción del Software LTI](#2-descripcion-del-software-lti)
 3. [Funciones Principales](#3-funciones-principales)
 4. [Lean Canvas](#4-lean-canvas)
 5. [Casos de Uso Principales](#5-casos-de-uso-principales)
 6. [Modelo de Datos](#6-modelo-de-datos)
-7. [Diseno del Sistema a Alto Nivel](#7-diseno-del-sistema-a-alto-nivel)
+7. [Diseño del Sistema a Alto Nivel](#7-diseno-del-sistema-a-alto-nivel)
 8. [Diagrama C4](#8-diagrama-c4)
 
 ---
 
-## 1. Investigacion y Analisis
+## 1. Investigación y Análisis
 
 ### 1.1 Contexto del problema
 
-Los sistemas ATS tradicionales han resuelto de forma razonable la trazabilidad de candidaturas, pero siguen presentando fricciones importantes en tres areas clave:
+Los sistemas ATS tradicionales han resuelto de forma razonable la trazabilidad de candidaturas, pero siguen presentando fricciones importantes en tres áreas clave:
 
 - **Sobrecarga operativa para HR**: gran parte del tiempo del reclutador se consume en filtrar CVs, coordinar entrevistas, perseguir feedback y mantener actualizado el pipeline.
-- **Colaboracion fragmentada**: recruiters, hiring managers y entrevistadores suelen trabajar entre ATS, correo, Slack y hojas de calculo, lo que genera retrasos y perdida de contexto.
+- **Colaboración fragmentada**: recruiters, hiring managers y entrevistadores suelen trabajar entre ATS, correo, Slack y hojas de cálculo, lo que genera retrasos y pérdida de contexto.
 - **Baja inteligencia del proceso**: muchos ATS almacenan datos pero ayudan poco a decidir, priorizar o automatizar tareas de alto volumen.
 
-LTI nace para cubrir ese hueco: no solo registrar candidaturas, sino reducir trabajo manual, mejorar la calidad de decision y acelerar el time-to-hire con IA y colaboracion en tiempo real.
+LTI nace para cubrir ese hueco: no solo registrar candidaturas, sino reducir trabajo manual, mejorar la calidad de decisión y acelerar el time-to-hire con IA y colaboración en tiempo real.
 
-### 1.2 Analisis de mercado y competidores
+### 1.2 Análisis de mercado y competidores
 
-Se ha realizado un benchmark de referencia sobre soluciones ATS ampliamente conocidas para identificar capacidades base, oportunidades de diferenciacion y elementos que no merece la pena reinventar.
+Se ha realizado un benchmark de referencia sobre soluciones ATS ampliamente conocidas para identificar capacidades base, oportunidades de diferenciación y elementos que no merece la pena reinventar.
 
-| Solucion | Fortalezas | Limitaciones detectadas | Oportunidad para LTI |
+| Solución | Fortalezas | Limitaciones detectadas | Oportunidad para LTI |
 |----------|------------|-------------------------|----------------------|
-| Greenhouse | Madurez en pipeline, scorecards, integraciones | Experiencia colaborativa poco nativa, IA no central | Diferenciar con colaboracion en tiempo real e IA transversal |
-| Lever | CRM de talento y facilidad de uso | Automatizacion y analitica menos avanzadas en escenarios complejos | Añadir workflows adaptativos y prediccion |
+| Greenhouse | Madurez en pipeline, scorecards, integraciones | Experiencia colaborativa poco nativa, IA no central | Diferenciar con colaboración en tiempo real e IA transversal |
+| Lever | CRM de talento y facilidad de uso | Automatización y analítica menos avanzadas en escenarios complejos | Añadir workflows adaptativos y predicción |
 | Workday | Suite corporativa robusta, gobierno y compliance | Complejidad alta, UX pesada, menor agilidad para medianas empresas | Ofrecer time-to-value rapido y mejor UX |
 | BambooHR / ATS ligeros | Simplicidad y adopcion inicial facil | Capacidad limitada para hiring colaborativo y alto volumen | Cubrir scale-ups y empresas en crecimiento |
 
 ### 1.3 Hallazgos clave
 
-Del analisis inicial se desprenden los siguientes aprendizajes:
+Del análisis inicial se desprenden los siguientes aprendizajes:
 
-1. La **velocidad operativa** sigue siendo una metrica critica: reducir revisiones manuales, tiempos de coordinacion y bloqueos entre roles.
+1. La **velocidad operativa** sigue siendo una métrica crítica: reducir revisiones manuales, tiempos de coordinación y bloqueos entre roles.
 2. La **calidad del hiring** depende tanto del dato como del proceso: scorecards, feedback estructurado y visibilidad compartida.
 3. La **IA aporta valor real** cuando se integra en el flujo de trabajo, no cuando se ofrece como funcionalidad aislada.
-4. Muchas capacidades adyacentes como email, calendarios, autenticacion o almacenamiento documental son terreno de **buy/integrate**, no de build desde cero.
-5. La ventaja competitiva sostenible para LTI debe centrarse en el core: matching, automatizacion, colaboracion y analitica predictiva.
+4. Muchas capacidades adyacentes como email, calendarios, autenticación o almacenamiento documental son terreno de **buy/integrate**, no de build desde cero.
+5. La ventaja competitiva sostenible para LTI debe centrarse en el core: matching, automatización, colaboración y analítica predictiva.
 
 ### 1.4 Requisitos iniciales del sistema
 
 #### Requisitos funcionales
 
-- Crear, aprobar y publicar ofertas en multiples canales.
-- Gestionar candidatos y candidaturas a traves de un pipeline configurable.
+- Crear, aprobar y publicar ofertas en múltiples canales.
+- Gestionar candidatos y candidaturas a través de un pipeline configurable.
 - Analizar CVs con IA y generar un score de matching explicable.
-- Facilitar evaluacion colaborativa con scorecards, comentarios y debrief compartido.
+- Facilitar evaluación colaborativa con scorecards, comentarios y debrief compartido.
 - Automatizar comunicaciones, cambios de etapa y tareas internas.
-- Proveer dashboards operativos y metricas de negocio del proceso de hiring.
+- Proveer dashboards operativos y métricas de negocio del proceso de hiring.
 
 #### Requisitos no funcionales
 
 - **Escalabilidad** para empresas desde 50 hasta 5.000 empleados.
-- **Alta disponibilidad** en modulos core del proceso de seleccion.
+- **Alta disponibilidad** en módulos core del proceso de selección.
 - **Seguridad y cumplimiento** con foco en GDPR, trazabilidad y control de acceso.
 - **Integrabilidad** con job boards, calendarios, correo, HRIS y herramientas colaborativas.
-- **Observabilidad** para medir SLAs, latencia de IA, errores de integracion y eventos del pipeline.
+- **Observabilidad** para medir SLAs, latencia de IA, errores de integración y eventos del pipeline.
 
-### 1.5 Decision buy vs build
+### 1.5 Decisión buy vs build
 
-Para una primera version del producto, LTI prioriza construir el nucleo diferencial e integrar capacidades commodity:
+Para una primera versión del producto, LTI prioriza construir el núcleo diferencial e integrar capacidades commodity:
 
 | Build (core diferencial) | Buy / Integrate |
 |--------------------------|-----------------|
 | Matching y scoring con IA | Email transaccional |
 | Workspace colaborativo de hiring | Calendarios corporativos |
 | Workflow automation del pipeline | SSO / Identity Provider |
-| Analitica predictiva de contratacion | Almacenamiento de archivos |
-| Deteccion de sesgo y recomendacion | Publicacion en job boards via APIs |
+| Analítica predictiva de contratación | Almacenamiento de archivos |
+| Detección de sesgo y recomendación | Publicación en job boards vía APIs |
 
-Esta aproximacion reduce time-to-market y concentra esfuerzo de producto e ingenieria donde LTI puede crear una ventaja real.
+Esta aproximación reduce time-to-market y concentra esfuerzo de producto e ingeniería donde LTI puede crear una ventaja real.
 
 ---
 
-## 2. Descripcion del Software LTI
+## 2. Descripción del Software LTI
 
-### 2.1 Que es LTI
+### 2.1 Qué es LTI
 
-LTI es un **Applicant Tracking System (ATS)** de nueva generacion disenado para transformar la forma en que las empresas gestionan sus procesos de contratacion. A diferencia de los ATS tradicionales que actuan como simples bases de datos de candidatos, LTI integra inteligencia artificial de forma nativa en cada etapa del funnel de reclutamiento, desde la publicacion de la oferta hasta la incorporacion del candidato.
+LTI es un **Applicant Tracking System (ATS)** de nueva generación diseñado para transformar la forma en que las empresas gestionan sus procesos de contratación. A diferencia de los ATS tradicionales que actúan como simples bases de datos de candidatos, LTI integra inteligencia artificial de forma nativa en cada etapa del funnel de reclutamiento, desde la publicación de la oferta hasta la incorporación del candidato.
 
-La plataforma esta construida sobre tres pilares fundamentales: **colaboracion en tiempo real** entre todos los stakeholders del proceso de hiring, **automatizacion inteligente** que elimina tareas repetitivas sin perder el toque humano, y **analitica predictiva** que ayuda a tomar mejores decisiones de contratacion basadas en datos.
+La plataforma está construida sobre tres pilares fundamentales: **colaboración en tiempo real** entre todos los stakeholders del proceso de hiring, **automatización inteligente** que elimina tareas repetitivas sin perder el toque humano, y **analítica predictiva** que ayuda a tomar mejores decisiones de contratación basadas en datos.
 
-LTI se posiciona como la solucion ideal para empresas de entre 50 y 5.000 empleados que buscan escalar sus procesos de contratacion sin sacrificar la calidad ni la experiencia del candidato.
+LTI se posiciona como la solución ideal para empresas de entre 50 y 5.000 empleados que buscan escalar sus procesos de contratación sin sacrificar la calidad ni la experiencia del candidato.
 
-### 2.2 Valor Anadido
+### 2.2 Valor Añadido
 
 | Aspecto | ATS Tradicionales | LTI |
 |---------|-------------------|-----|
-| Screening de CVs | Manual o con filtros basicos | IA que analiza competencias, cultura fit y potencial |
-| Colaboracion | Emails y comentarios asincronos | Workspace colaborativo en tiempo real tipo Notion |
-| Automatizacion | Reglas estaticas if/then | Workflows inteligentes que se adaptan al contexto |
-| Analitica | Reportes historicos basicos | Predicciones de time-to-hire, probabilidad de aceptacion, diversidad |
-| Experiencia candidato | Portales genericos | Experiencia personalizada con chatbot IA |
+| Screening de CVs | Manual o con filtros básicos | IA que analiza competencias, cultura fit y potencial |
+| Colaboración | Emails y comentarios asíncronos | Workspace colaborativo en tiempo real tipo Notion |
+| Automatización | Reglas estáticas if/then | Workflows inteligentes que se adaptan al contexto |
+| Analítica | Reportes históricos básicos | Predicciones de time-to-hire, probabilidad de aceptación, diversidad |
+| Experiencia candidato | Portales genéricos | Experiencia personalizada con chatbot IA |
 
 ### 2.3 Ventajas Competitivas
 
-1. **IA Nativa, no bolt-on**: La inteligencia artificial no es un complemento, sino el nucleo de la plataforma. Cada funcionalidad se ha disenado desde cero con IA integrada.
+1. **IA Nativa, no bolt-on**: La inteligencia artificial no es un complemento, sino el núcleo de la plataforma. Cada funcionalidad se ha diseñado desde cero con IA integrada.
 
-2. **Colaboracion en tiempo real**: Espacios de trabajo compartidos donde reclutadores y hiring managers pueden evaluar candidatos simultaneamente, con cursores en tiempo real, comentarios contextuales y scorecards colaborativas.
+2. **Colaboración en tiempo real**: Espacios de trabajo compartidos donde reclutadores y hiring managers pueden evaluar candidatos simultáneamente, con cursores en tiempo real, comentarios contextuales y scorecards colaborativas.
 
-3. **Automatizacion adaptativa**: Los workflows no son estaticos - el sistema aprende de las decisiones del equipo y sugiere optimizaciones al proceso de contratacion.
+3. **Automatización adaptativa**: Los workflows no son estáticos - el sistema aprende de las decisiones del equipo y sugiere optimizaciones al proceso de contratación.
 
-4. **Time-to-value ultrarapido**: Setup en menos de 24 horas gracias a templates de industria, importacion inteligente de datos y onboarding guiado por IA.
+4. **Time-to-value ultrarrápido**: Setup en menos de 24 horas gracias a templates de industria, importación inteligente de datos y onboarding guiado por IA.
 
-5. **Analisis de sesgo y diversidad**: Herramientas integradas de deteccion de sesgos en job descriptions, screening y evaluaciones, promoviendo procesos de contratacion mas equitativos.
+5. **Análisis de sesgo y diversidad**: Herramientas integradas de detección de sesgos en job descriptions, screening y evaluaciones, promoviendo procesos de contratación más equitativos.
 
-6. **Integraciones bidireccionales**: Conectores nativos con LinkedIn, Indeed, Glassdoor, Google Calendar, Slack, Microsoft Teams y mas de 50 plataformas, con sincronizacion en tiempo real.
+6. **Integraciones bidireccionales**: Conectores nativos con LinkedIn, Indeed, Glassdoor, Google Calendar, Slack, Microsoft Teams y más de 50 plataformas, con sincronización en tiempo real.
 
-7. **Experiencia del candidato premium**: Portal del candidato con chatbot IA, actualizaciones automaticas de estado, programacion autonoma de entrevistas y feedback personalizado.
+7. **Experiencia del candidato premium**: Portal del candidato con chatbot IA, actualizaciones automáticas de estado, programación autónoma de entrevistas y feedback personalizado.
 
 ---
 
 ## 3. Funciones Principales
 
-### 3.1 Gestion de Ofertas de Empleo
+### 3.1 Gestión de Ofertas de Empleo
 
-| Funcion | Descripcion | Usuario Principal |
+| Función | Descripción | Usuario Principal |
 |---------|-------------|-------------------|
-| Creacion asistida por IA | Generacion automatica de job descriptions optimizadas a partir de requisitos basicos, incluyendo sugerencias de lenguaje inclusivo | Reclutador |
-| Publicacion multicanal | Distribucion simultanea a job boards, redes sociales y pagina de careers con un solo clic | Reclutador |
+| Creación asistida por IA | Generación automática de job descriptions optimizadas a partir de requisitos básicos, incluyendo sugerencias de lenguaje inclusivo | Reclutador |
+| Publicación multicanal | Distribución simultánea a job boards, redes sociales y página de careers con un solo clic | Reclutador |
 | Templates de industria | Biblioteca de plantillas de ofertas categorizadas por sector y rol, personalizables | Reclutador |
-| Gestion del ciclo de vida | Control de estados (borrador, activa, pausada, cerrada) con metricas por etapa | Hiring Manager |
+| Gestión del ciclo de vida | Control de estados (borrador, activa, pausada, cerrada) con métricas por etapa | Hiring Manager |
 
 ### 3.2 Pipeline de Candidatos
 
-| Funcion | Descripcion | Usuario Principal |
+| Función | Descripción | Usuario Principal |
 |---------|-------------|-------------------|
-| Screening automatico con IA | Analisis de CVs y perfiles que genera un score de matching con la posicion, evaluando competencias tecnicas, experiencia y cultura fit | Sistema IA |
+| Screening automático con IA | Análisis de CVs y perfiles que genera un score de matching con la posición, evaluando competencias técnicas, experiencia y cultura fit | Sistema IA |
 | Kanban visual del pipeline | Tablero drag-and-drop para mover candidatos entre etapas, con filtros avanzados y vistas personalizadas | Reclutador |
-| Parsing inteligente de CVs | Extraccion automatica de datos estructurados desde CVs en cualquier formato (PDF, Word, LinkedIn) | Sistema IA |
-| Deduplicacion de candidatos | Deteccion automatica de candidatos duplicados con merge inteligente de perfiles | Sistema IA |
+| Parsing inteligente de CVs | Extracción automática de datos estructurados desde CVs en cualquier formato (PDF, Word, LinkedIn) | Sistema IA |
+| Deduplicación de candidatos | Detección automática de candidatos duplicados con merge inteligente de perfiles | Sistema IA |
 
-### 3.3 Colaboracion y Comunicacion
+### 3.3 Colaboración y Comunicación
 
-| Funcion | Descripcion | Usuario Principal |
+| Función | Descripción | Usuario Principal |
 |---------|-------------|-------------------|
 | Workspace colaborativo | Espacio en tiempo real para que reclutadores y managers revisen candidatos juntos, con presencia en vivo y cursores compartidos | Reclutador / Hiring Manager |
-| Scorecards estructuradas | Formularios de evaluacion configurables con criterios ponderados, visibles para todo el equipo de hiring | Hiring Manager |
-| Mensajeria interna | Chat contextual vinculado a candidatos y posiciones, con mencion a miembros del equipo | Reclutador / Hiring Manager |
-| Programacion de entrevistas | Integracion con calendarios para proponer horarios automaticamente y enviar invitaciones | Reclutador / Candidato |
+| Scorecards estructuradas | Formularios de evaluación configurables con criterios ponderados, visibles para todo el equipo de hiring | Hiring Manager |
+| Mensajería interna | Chat contextual vinculado a candidatos y posiciones, con mención a miembros del equipo | Reclutador / Hiring Manager |
+| Programación de entrevistas | Integración con calendarios para proponer horarios automáticamente y enviar invitaciones | Reclutador / Candidato |
 
-### 3.4 Automatizacion e IA
+### 3.4 Automatización e IA
 
-| Funcion | Descripcion | Usuario Principal |
+| Función | Descripción | Usuario Principal |
 |---------|-------------|-------------------|
-| Workflow builder visual | Editor no-code para disenar flujos de automatizacion (emails, cambios de etapa, notificaciones, tareas) | Admin / Reclutador |
-| Chatbot para candidatos | Asistente IA que responde preguntas de candidatos, recopila informacion adicional y programa entrevistas | Candidato |
+| Workflow builder visual | Editor no-code para diseñar flujos de automatización (emails, cambios de etapa, notificaciones, tareas) | Admin / Reclutador |
+| Chatbot para candidatos | Asistente IA que responde preguntas de candidatos, recopila información adicional y programa entrevistas | Candidato |
 | Recomendaciones de candidatos | Motor que sugiere candidatos de la base de datos existente para nuevas posiciones | Reclutador |
-| Analisis de sentimiento | Evaluacion automatica del tono y engagement de las comunicaciones con candidatos | Reclutador |
+| Análisis de sentimiento | Evaluación automática del tono y engagement de las comunicaciones con candidatos | Reclutador |
 
-### 3.5 Analitica y Reporting
+### 3.5 Analítica y Reporting
 
-| Funcion | Descripcion | Usuario Principal |
+| Función | Descripción | Usuario Principal |
 |---------|-------------|-------------------|
-| Dashboard en tiempo real | Metricas clave de reclutamiento (time-to-hire, cost-per-hire, conversion rates) actualizadas en vivo | Admin / Hiring Manager |
-| Predicciones de contratacion | Estimaciones basadas en datos historicos sobre tiempo hasta cubrir una posicion y probabilidad de aceptacion de oferta | Reclutador |
-| Informes de diversidad | Metricas y visualizaciones sobre diversidad en el pipeline y deteccion de sesgos | Admin |
-| Exportacion y API de datos | Exportacion en multiples formatos y API REST para integracion con herramientas de BI | Admin |
+| Dashboard en tiempo real | Métricas clave de reclutamiento (time-to-hire, cost-per-hire, conversion rates) actualizadas en vivo | Admin / Hiring Manager |
+| Predicciones de contratación | Estimaciones basadas en datos históricos sobre tiempo hasta cubrir una posición y probabilidad de aceptación de oferta | Reclutador |
+| Informes de diversidad | Métricas y visualizaciones sobre diversidad en el pipeline y detección de sesgos | Admin |
+| Exportación y API de datos | Exportación en múltiples formatos y API REST para integración con herramientas de BI | Admin |
 
-### 3.6 Administracion y Configuracion
+### 3.6 Administración y Configuración
 
-| Funcion | Descripcion | Usuario Principal |
+| Función | Descripción | Usuario Principal |
 |---------|-------------|-------------------|
-| Gestion de roles y permisos | Control granular de acceso por rol, departamento y tipo de posicion | Admin |
-| Configuracion de pipeline | Personalizacion de etapas, criterios de evaluacion y reglas de transicion por departamento | Admin |
-| Cumplimiento GDPR | Gestion automatica de consentimientos, retenciones de datos y derecho al olvido | Admin |
-| Single Sign-On (SSO) | Integracion con proveedores de identidad corporativos (Okta, Azure AD, Google Workspace) | Admin |
+| Gestión de roles y permisos | Control granular de acceso por rol, departamento y tipo de posición | Admin |
+| Configuración de pipeline | Personalización de etapas, criterios de evaluación y reglas de transición por departamento | Admin |
+| Cumplimiento GDPR | Gestión automática de consentimientos, retenciones de datos y derecho al olvido | Admin |
+| Single Sign-On (SSO) | Integración con proveedores de identidad corporativos (Okta, Azure AD, Google Workspace) | Admin |
 
 ---
 
@@ -195,7 +195,7 @@ LTI se posiciona como la solucion ideal para empresas de entre 50 y 5.000 emplea
 |    hiring managers  |                     | reducir el time-to- |
 |                     | 3. Workflows adap-  | hire un 60%         |
 | 3. Decisiones de    |    tativos que      |                     |
-|    contratacion     |    aprenden del     |                     |
+|    contratación     |    aprenden del     |                     |
 |    basadas en       |    equipo           |                     |
 |    intuicion, no    |                     |                     |
 |    en datos         |                     |                     |
@@ -206,9 +206,9 @@ LTI se posiciona como la solucion ideal para empresas de entre 50 y 5.000 emplea
 | - Tasa de           |                     |   entrenado con     |
 |   conversion por    |                     |   millones de       |
 |   etapa             |                     |   procesos de       |
-| - NPS de candidatos |                     |   contratacion      |
+| - NPS de candidatos |                     |   contratación      |
 | - Coste por         |                     | - Efecto de red:    |
-|   contratacion      |                     |   cuanto mas se     |
+|   contratación      |                     |   cuanto más se     |
 | - Adoption rate     |                     |   usa, mejor        |
 |   (DAU/MAU)         |                     |   predice           |
 +---------------------+---------------------+---------------------+
@@ -229,7 +229,7 @@ LTI se posiciona como la solucion ideal para empresas de entre 50 y 5.000 emplea
 |  SEGMENTO DE CLIENTES                                           |
 |                                                                  |
 | - Empresas medianas (50-500 empleados) en crecimiento           |
-| - Scale-ups tecnologicas con alto volumen de contratacion        |
+| - Scale-ups tecnológicas con alto volumen de contratación        |
 | - Departamentos de HR que buscan modernizar su stack             |
 | - Empresas comprometidas con diversidad e inclusion              |
 +------------------------------------------------------------------+
@@ -278,38 +278,38 @@ graph TB
 
 ## 5. Casos de Uso Principales
 
-### 5.1 Caso de Uso 1: Publicacion y Gestion de una Oferta de Empleo
+### 5.1 Caso de Uso 1: Publicación y Gestión de una Oferta de Empleo
 
 **Actores:**
 - **Primario:** Reclutador
 - **Secundarios:** Hiring Manager, Sistema de IA, Job Boards externos
 
-**Descripcion:** El reclutador crea una nueva oferta de empleo con asistencia de IA, la revisa con el hiring manager, y la publica simultaneamente en multiples canales.
+**Descripción:** El reclutador crea una nueva oferta de empleo con asistencia de IA, la revisa con el hiring manager, y la publica simultáneamente en múltiples canales.
 
 **Precondiciones:**
-- El reclutador esta autenticado en el sistema
+- El reclutador está autenticado en el sistema
 - Existe al menos un departamento configurado
 - El hiring manager esta registrado en el sistema
 
 **Postcondiciones:**
-- La oferta esta publicada y visible en los canales seleccionados
-- El pipeline asociado esta creado con las etapas configuradas
+- La oferta está publicada y visible en los canales seleccionados
+- El pipeline asociado está creado con las etapas configuradas
 - El hiring manager ha sido notificado
 
 **Flujo Principal:**
 
-1. El reclutador selecciona "Crear nueva posicion"
-2. Introduce los requisitos basicos (titulo, departamento, nivel, habilidades clave)
-3. El sistema de IA genera automaticamente una job description completa y optimizada
+1. El reclutador selecciona "Crear nueva posición"
+2. Introduce los requisitos básicos (título, departamento, nivel, habilidades clave)
+3. El sistema de IA genera automáticamente una job description completa y optimizada
 4. El sistema sugiere mejoras de lenguaje inclusivo si detecta sesgos
-5. El reclutador revisa y edita la descripcion generada
+5. El reclutador revisa y edita la descripción generada
 6. El reclutador invita al hiring manager a revisar la oferta
-7. El hiring manager recibe notificacion y revisa en el workspace colaborativo
+7. El hiring manager recibe notificación y revisa en el workspace colaborativo
 8. El hiring manager aprueba o sugiere cambios (en tiempo real)
-9. El reclutador selecciona los canales de publicacion (job boards, careers page, LinkedIn)
-10. El sistema publica automaticamente en todos los canales seleccionados
-11. Se crea el pipeline con las etapas predefinidas para ese tipo de posicion
-12. Ambos actores reciben confirmacion de la publicacion
+9. El reclutador selecciona los canales de publicación (job boards, careers page, LinkedIn)
+10. El sistema publica automáticamente en todos los canales seleccionados
+11. Se crea el pipeline con las etapas predefinidas para ese tipo de posición
+12. Ambos actores reciben confirmación de la publicación
 
 **Flujo Alternativo - Rechazo del Hiring Manager:**
 
@@ -334,7 +334,7 @@ rectangle "LTI ATS" {
   usecase "Revisar lenguaje inclusivo" as UC3
   usecase "Revisar y aprobar oferta" as UC4
   usecase "Publicar en multicanal" as UC5
-  usecase "Crear pipeline automatico" as UC6
+  usecase "Crear pipeline automático" as UC6
 }
 
 Reclutador --> UC1
@@ -351,42 +351,42 @@ UC5 .> UC6 : <<include>>
 
 ---
 
-### 5.2 Caso de Uso 2: Screening y Evaluacion de Candidatos con IA
+### 5.2 Caso de Uso 2: Screening y Evaluación de Candidatos con IA
 
 **Actores:**
 - **Primario:** Reclutador
 - **Secundarios:** Sistema de IA, Candidato
 
-**Descripcion:** Cuando un candidato aplica a una posicion, el sistema de IA analiza automaticamente su CV, genera un score de matching y enriquece su perfil. El reclutador revisa los resultados y decide el avance en el pipeline.
+**Descripción:** Cuando un candidato aplica a una posición, el sistema de IA analiza automáticamente su CV, genera un score de matching y enriquece su perfil. El reclutador revisa los resultados y decide el avance en el pipeline.
 
 **Precondiciones:**
-- Existe una posicion activa con pipeline configurado
-- El candidato ha enviado su aplicacion (CV + datos)
-- El modelo de IA esta operativo
+- Existe una posición activa con pipeline configurado
+- El candidato ha enviado su aplicación (CV + datos)
+- El modelo de IA está operativo
 
 **Postcondiciones:**
 - El candidato tiene un perfil enriquecido con datos estructurados
-- Se ha generado un score de matching con la posicion
+- Se ha generado un score de matching con la posición
 - El candidato ha sido ubicado en la etapa correspondiente del pipeline
 
 **Flujo Principal:**
 
-1. El candidato envia su aplicacion a traves del portal o un job board
-2. El sistema recibe la aplicacion y extrae datos del CV (parsing)
-3. La IA estructura la informacion: experiencia, habilidades, educacion, idiomas
+1. El candidato envía su aplicación a través del portal o un job board
+2. El sistema recibe la aplicación y extrae datos del CV (parsing)
+3. La IA estructura la información: experiencia, habilidades, educación, idiomas
 4. La IA calcula un score de matching (0-100) basado en:
-   - Coincidencia de habilidades tecnicas (40%)
+   - Coincidencia de habilidades técnicas (40%)
    - Experiencia relevante (30%)
-   - Formacion academica (15%)
+   - Formación académica (15%)
    - Cultura fit estimado (15%)
-5. El sistema clasifica al candidato automaticamente:
-   - Score >= 75: "Altamente recomendado" (avanza a revision)
-   - Score 50-74: "Recomendado con reservas" (revision manual)
-   - Score < 50: "No recomendado" (notificacion de rechazo automatica configurable)
+5. El sistema clasifica al candidato automáticamente:
+   - Score >= 75: "Altamente recomendado" (avanza a revisión)
+   - Score 50-74: "Recomendado con reservas" (revisión manual)
+   - Score < 50: "No recomendado" (notificación de rechazo automática configurable)
 6. El reclutador accede al dashboard con candidatos ordenados por score
 7. El reclutador revisa el perfil enriquecido y el desglose del score
-8. El reclutador decide: avanzar al candidato, rechazar o solicitar mas informacion
-9. El sistema ejecuta la accion y actualiza el pipeline
+8. El reclutador decide: avanzar al candidato, rechazar o solicitar más información
+9. El sistema ejecuta la acción y actualiza el pipeline
 
 **Flujo Alternativo - Candidato duplicado:**
 
@@ -405,8 +405,8 @@ actor Reclutador
 actor "Sistema IA" as IA
 
 rectangle "LTI ATS" {
-  usecase "Enviar aplicacion" as UC1
-  usecase "Parsear CV automaticamente" as UC2
+  usecase "Enviar aplicación" as UC1
+  usecase "Parsear CV automáticamente" as UC2
   usecase "Calcular score de matching" as UC3
   usecase "Clasificar candidato" as UC4
   usecase "Revisar candidatos rankeados" as UC5
@@ -429,46 +429,46 @@ UC7 .> UC2 : <<extend>>
 
 ---
 
-### 5.3 Caso de Uso 3: Evaluacion Colaborativa de Candidatos
+### 5.3 Caso de Uso 3: Evaluación Colaborativa de Candidatos
 
 **Actores:**
 - **Primario:** Hiring Manager
 - **Secundarios:** Reclutador, Entrevistadores, Sistema de IA
 
-**Descripcion:** Tras las entrevistas, el equipo de hiring evalua colaborativamente a los candidatos finalistas usando scorecards estructuradas en el workspace compartido, tomando una decision conjunta.
+**Descripción:** Tras las entrevistas, el equipo de hiring evalúa colaborativamente a los candidatos finalistas usando scorecards estructuradas en el workspace compartido, tomando una decisión conjunta.
 
 **Precondiciones:**
 - El candidato ha completado al menos una entrevista
-- Existe una scorecard configurada para la posicion
-- Al menos 2 miembros del equipo de hiring estan asignados
+- Existe una scorecard configurada para la posición
+- Al menos 2 miembros del equipo de hiring están asignados
 
 **Postcondiciones:**
 - Todos los evaluadores han completado sus scorecards
-- Se ha tomado una decision sobre el candidato (avanzar, rechazar, hold)
-- La decision y justificacion quedan registradas en el sistema
+- Se ha tomado una decisión sobre el candidato (avanzar, rechazar, hold)
+- La decisión y justificación quedan registradas en el sistema
 
 **Flujo Principal:**
 
-1. El reclutador mueve al candidato a la etapa de "Evaluacion" en el pipeline
+1. El reclutador mueve al candidato a la etapa de "Evaluación" en el pipeline
 2. El sistema notifica a todos los miembros del equipo de hiring
 3. Cada entrevistador accede al workspace colaborativo del candidato
 4. Los entrevistadores completan su scorecard individual:
-   - Puntuan cada criterio definido (1-5)
-   - Anaden comentarios cualitativos por criterio
-   - Emiten una recomendacion global (fuerte si / si / neutral / no / fuerte no)
+   - Puntúan cada criterio definido (1-5)
+   - Añaden comentarios cualitativos por criterio
+   - Emiten una recomendación global (fuerte sí / sí / neutral / no / fuerte no)
 5. La IA genera un resumen consolidado de todas las evaluaciones
-6. La IA detecta y senala discrepancias significativas entre evaluadores
-7. El hiring manager convoca una sesion de debrief en el workspace
+6. La IA detecta y señala discrepancias significativas entre evaluadores
+7. El hiring manager convoca una sesión de debrief en el workspace
 8. El equipo discute en tiempo real viendo las scorecards lado a lado
-9. El hiring manager registra la decision final con justificacion
-10. El sistema ejecuta la accion correspondiente (avanzar a oferta, rechazar, etc.)
-11. El reclutador recibe notificacion para continuar el proceso
+9. El hiring manager registra la decisión final con justificación
+10. El sistema ejecuta la acción correspondiente (avanzar a oferta, rechazar, etc.)
+11. El reclutador recibe notificación para continuar el proceso
 
 **Flujo Alternativo - Empate o desacuerdo:**
 
 - En el paso 8, si hay desacuerdo significativo:
   - La IA sugiere realizar una entrevista adicional focalizada en los puntos de discrepancia
-  - El hiring manager puede aceptar la sugerencia o tomar una decision
+  - El hiring manager puede aceptar la sugerencia o tomar una decisión
   - Si acepta, se programa la entrevista adicional y se vuelve al paso 2
 
 **Diagrama de Caso de Uso (PlantUML):**
@@ -482,12 +482,12 @@ actor Entrevistador
 actor "Sistema IA" as IA
 
 rectangle "LTI ATS" {
-  usecase "Mover candidato a evaluacion" as UC1
+  usecase "Mover candidato a evaluación" as UC1
   usecase "Completar scorecard individual" as UC2
   usecase "Generar resumen consolidado IA" as UC3
   usecase "Detectar discrepancias" as UC4
-  usecase "Sesion de debrief colaborativa" as UC5
-  usecase "Registrar decision final" as UC6
+  usecase "Sesión de debrief colaborativa" as UC5
+  usecase "Registrar decisión final" as UC6
   usecase "Notificar siguiente paso" as UC7
 }
 
@@ -512,107 +512,107 @@ UC6 .> UC7 : <<include>>
 ### 6.1 Entidades y Atributos
 
 #### Company (Empresa)
-| Atributo | Tipo | Descripcion |
+| Atributo | Tipo | Descripción |
 |----------|------|-------------|
-| id | UUID | PK - Identificador unico |
+| id | UUID | PK - Identificador único |
 | name | VARCHAR(255) | Nombre de la empresa |
 | domain | VARCHAR(255) | Dominio web |
 | industry | VARCHAR(100) | Sector |
 | size_range | ENUM | Rango de empleados |
-| plan | ENUM | Plan de suscripcion (starter/pro/enterprise) |
-| created_at | TIMESTAMP | Fecha de creacion |
-| updated_at | TIMESTAMP | Fecha de actualizacion |
+| plan | ENUM | Plan de suscripción (starter/pro/enterprise) |
+| created_at | TIMESTAMP | Fecha de creación |
+| updated_at | TIMESTAMP | Fecha de actualización |
 
 #### Department (Departamento)
-| Atributo | Tipo | Descripcion |
+| Atributo | Tipo | Descripción |
 |----------|------|-------------|
 | id | UUID | PK |
 | company_id | UUID | FK -> Company |
 | name | VARCHAR(255) | Nombre del departamento |
-| parent_department_id | UUID | FK -> Department (jerarquia) |
-| created_at | TIMESTAMP | Fecha de creacion |
+| parent_department_id | UUID | FK -> Department (jerarquía) |
+| created_at | TIMESTAMP | Fecha de creación |
 
 #### User (Usuario)
-| Atributo | Tipo | Descripcion |
+| Atributo | Tipo | Descripción |
 |----------|------|-------------|
 | id | UUID | PK |
 | company_id | UUID | FK -> Company |
 | department_id | UUID | FK -> Department |
-| email | VARCHAR(255) | Email (unico por company) |
+| email | VARCHAR(255) | Email (único por company) |
 | full_name | VARCHAR(255) | Nombre completo |
 | role | ENUM | Rol (admin/recruiter/hiring_manager/interviewer) |
 | avatar_url | VARCHAR(500) | URL del avatar |
 | is_active | BOOLEAN | Estado activo |
-| last_login_at | TIMESTAMP | Ultimo login |
-| created_at | TIMESTAMP | Fecha de creacion |
+| last_login_at | TIMESTAMP | Último login |
+| created_at | TIMESTAMP | Fecha de creación |
 
-#### JobPosition (Posicion / Oferta)
-| Atributo | Tipo | Descripcion |
+#### JobPosition (Posición / Oferta)
+| Atributo | Tipo | Descripción |
 |----------|------|-------------|
 | id | UUID | PK |
 | company_id | UUID | FK -> Company |
 | department_id | UUID | FK -> Department |
 | created_by | UUID | FK -> User (reclutador) |
 | hiring_manager_id | UUID | FK -> User |
-| title | VARCHAR(255) | Titulo del puesto |
-| description | TEXT | Descripcion completa |
+| title | VARCHAR(255) | Título del puesto |
+| description | TEXT | Descripción completa |
 | requirements | TEXT | Requisitos |
-| location | VARCHAR(255) | Ubicacion |
+| location | VARCHAR(255) | Ubicación |
 | work_mode | ENUM | Modalidad (remote/hybrid/onsite) |
 | employment_type | ENUM | Tipo (full_time/part_time/contract/internship) |
-| salary_min | DECIMAL(10,2) | Salario minimo |
-| salary_max | DECIMAL(10,2) | Salario maximo |
+| salary_min | DECIMAL(10,2) | Salario mínimo |
+| salary_max | DECIMAL(10,2) | Salario máximo |
 | salary_currency | VARCHAR(3) | Moneda |
 | status | ENUM | Estado (draft/active/paused/closed) |
-| published_at | TIMESTAMP | Fecha de publicacion |
+| published_at | TIMESTAMP | Fecha de publicación |
 | closed_at | TIMESTAMP | Fecha de cierre |
-| created_at | TIMESTAMP | Fecha de creacion |
-| updated_at | TIMESTAMP | Fecha de actualizacion |
+| created_at | TIMESTAMP | Fecha de creación |
+| updated_at | TIMESTAMP | Fecha de actualización |
 
 #### PipelineStage (Etapa del Pipeline)
-| Atributo | Tipo | Descripcion |
+| Atributo | Tipo | Descripción |
 |----------|------|-------------|
 | id | UUID | PK |
 | job_position_id | UUID | FK -> JobPosition |
 | name | VARCHAR(100) | Nombre de la etapa |
-| order_index | INT | Posicion en el pipeline |
+| order_index | INT | Posición en el pipeline |
 | stage_type | ENUM | Tipo (applied/screening/interview/evaluation/offer/hired/rejected) |
 | is_automated | BOOLEAN | Tiene automatizaciones |
-| created_at | TIMESTAMP | Fecha de creacion |
+| created_at | TIMESTAMP | Fecha de creación |
 
 #### Candidate (Candidato)
-| Atributo | Tipo | Descripcion |
+| Atributo | Tipo | Descripción |
 |----------|------|-------------|
 | id | UUID | PK |
 | company_id | UUID | FK -> Company |
 | email | VARCHAR(255) | Email del candidato |
 | full_name | VARCHAR(255) | Nombre completo |
-| phone | VARCHAR(50) | Telefono |
+| phone | VARCHAR(50) | Teléfono |
 | linkedin_url | VARCHAR(500) | Perfil de LinkedIn |
-| location | VARCHAR(255) | Ubicacion |
+| location | VARCHAR(255) | Ubicación |
 | resume_url | VARCHAR(500) | URL del CV almacenado |
 | resume_parsed_data | JSONB | Datos estructurados del CV (parseados por IA) |
 | source | VARCHAR(100) | Fuente (linkedin/indeed/referral/direct) |
 | tags | VARCHAR[] | Etiquetas |
-| created_at | TIMESTAMP | Fecha de creacion |
-| updated_at | TIMESTAMP | Fecha de actualizacion |
+| created_at | TIMESTAMP | Fecha de creación |
+| updated_at | TIMESTAMP | Fecha de actualización |
 
 #### Application (Candidatura)
-| Atributo | Tipo | Descripcion |
+| Atributo | Tipo | Descripción |
 |----------|------|-------------|
 | id | UUID | PK |
 | candidate_id | UUID | FK -> Candidate |
 | job_position_id | UUID | FK -> JobPosition |
 | current_stage_id | UUID | FK -> PipelineStage |
 | ai_matching_score | DECIMAL(5,2) | Score de matching IA (0-100) |
-| ai_score_breakdown | JSONB | Desglose del score por categoria |
+| ai_score_breakdown | JSONB | Desglose del score por categoría |
 | status | ENUM | Estado (active/hired/rejected/withdrawn) |
 | rejection_reason | TEXT | Motivo de rechazo |
-| applied_at | TIMESTAMP | Fecha de aplicacion |
-| updated_at | TIMESTAMP | Fecha de actualizacion |
+| applied_at | TIMESTAMP | Fecha de aplicación |
+| updated_at | TIMESTAMP | Fecha de actualización |
 
 #### Interview (Entrevista)
-| Atributo | Tipo | Descripcion |
+| Atributo | Tipo | Descripción |
 |----------|------|-------------|
 | id | UUID | PK |
 | application_id | UUID | FK -> Application |
@@ -620,60 +620,60 @@ UC6 .> UC7 : <<include>>
 | stage_id | UUID | FK -> PipelineStage |
 | interview_type | ENUM | Tipo (phone_screen/technical/behavioral/culture_fit/final) |
 | scheduled_at | TIMESTAMP | Fecha programada |
-| duration_minutes | INT | Duracion en minutos |
+| duration_minutes | INT | Duración en minutos |
 | location | VARCHAR(255) | Lugar o enlace de videollamada |
 | status | ENUM | Estado (scheduled/completed/cancelled/no_show) |
 | notes | TEXT | Notas de la entrevista |
-| created_at | TIMESTAMP | Fecha de creacion |
+| created_at | TIMESTAMP | Fecha de creación |
 
-#### Scorecard (Evaluacion)
-| Atributo | Tipo | Descripcion |
+#### Scorecard (Evaluación)
+| Atributo | Tipo | Descripción |
 |----------|------|-------------|
 | id | UUID | PK |
 | application_id | UUID | FK -> Application |
 | evaluator_id | UUID | FK -> User |
 | interview_id | UUID | FK -> Interview (opcional) |
-| overall_rating | INT | Valoracion global (1-5) |
-| recommendation | ENUM | Recomendacion (strong_yes/yes/neutral/no/strong_no) |
-| summary | TEXT | Resumen de la evaluacion |
-| submitted_at | TIMESTAMP | Fecha de envio |
-| created_at | TIMESTAMP | Fecha de creacion |
+| overall_rating | INT | Valoración global (1-5) |
+| recommendation | ENUM | Recomendación (strong_yes/yes/neutral/no/strong_no) |
+| summary | TEXT | Resumen de la evaluación |
+| submitted_at | TIMESTAMP | Fecha de envío |
+| created_at | TIMESTAMP | Fecha de creación |
 
-#### ScorecardCriteria (Criterios de la Evaluacion)
-| Atributo | Tipo | Descripcion |
+#### ScorecardCriteria (Criterios de la Evaluación)
+| Atributo | Tipo | Descripción |
 |----------|------|-------------|
 | id | UUID | PK |
 | scorecard_id | UUID | FK -> Scorecard |
 | criteria_name | VARCHAR(255) | Nombre del criterio |
-| rating | INT | Puntuacion (1-5) |
+| rating | INT | Puntuación (1-5) |
 | comment | TEXT | Comentario del criterio |
 
 #### Comment (Comentario/Nota)
-| Atributo | Tipo | Descripcion |
+| Atributo | Tipo | Descripción |
 |----------|------|-------------|
 | id | UUID | PK |
 | application_id | UUID | FK -> Application |
 | author_id | UUID | FK -> User |
 | content | TEXT | Contenido del comentario |
 | is_private | BOOLEAN | Solo visible para el autor |
-| created_at | TIMESTAMP | Fecha de creacion |
-| updated_at | TIMESTAMP | Fecha de actualizacion |
+| created_at | TIMESTAMP | Fecha de creación |
+| updated_at | TIMESTAMP | Fecha de actualización |
 
-#### Notification (Notificacion)
-| Atributo | Tipo | Descripcion |
+#### Notification (Notificación)
+| Atributo | Tipo | Descripción |
 |----------|------|-------------|
 | id | UUID | PK |
 | user_id | UUID | FK -> User |
-| type | VARCHAR(50) | Tipo de notificacion |
-| title | VARCHAR(255) | Titulo |
+| type | VARCHAR(50) | Tipo de notificación |
+| title | VARCHAR(255) | Título |
 | message | TEXT | Mensaje |
 | reference_type | VARCHAR(50) | Tipo de entidad referenciada |
 | reference_id | UUID | ID de la entidad referenciada |
-| is_read | BOOLEAN | Leida |
-| created_at | TIMESTAMP | Fecha de creacion |
+| is_read | BOOLEAN | Leída |
+| created_at | TIMESTAMP | Fecha de creación |
 
-#### AutomationRule (Regla de Automatizacion)
-| Atributo | Tipo | Descripcion |
+#### AutomationRule (Regla de Automatización)
+| Atributo | Tipo | Descripción |
 |----------|------|-------------|
 | id | UUID | PK |
 | company_id | UUID | FK -> Company |
@@ -683,9 +683,9 @@ UC6 .> UC7 : <<include>>
 | actions | JSONB | Acciones a ejecutar |
 | is_active | BOOLEAN | Activa |
 | created_by | UUID | FK -> User |
-| created_at | TIMESTAMP | Fecha de creacion |
+| created_at | TIMESTAMP | Fecha de creación |
 
-### 6.2 Diagrama Entidad-Relacion
+### 6.2 Diagrama Entidad-Relación
 
 ```mermaid
 erDiagram
@@ -725,60 +725,60 @@ erDiagram
 
 ---
 
-## 7. Diseno del Sistema a Alto Nivel
+## 7. Diseño del Sistema a Alto Nivel
 
 ### 7.1 Arquitectura
 
-LTI utiliza una **arquitectura de microservicios** organizada en dominios de negocio, comunicados a traves de un API Gateway y un sistema de eventos asincrono. Esta arquitectura se elige por:
+LTI utiliza una **arquitectura de microservicios** organizada en dominios de negocio, comunicados a través de un API Gateway y un sistema de eventos asíncrono. Esta arquitectura se elige por:
 
 - **Escalabilidad independiente**: El servicio de IA puede escalar horizontalmente bajo carga de screening sin afectar al resto
-- **Despliegue independiente**: Cada equipo puede desplegar su servicio sin coordinacion con otros
+- **Despliegue independiente**: Cada equipo puede desplegar su servicio sin coordinación con otros
 - **Resiliencia**: Un fallo en el servicio de notificaciones no afecta al pipeline core
-- **Evolucion tecnologica**: El servicio de IA puede usar Python/FastAPI mientras el core usa Node.js
-- **Next.js como BFF**: El frontend Next.js actua tambien como Backend-for-Frontend, con Route Handlers que orquestan llamadas a los microservicios, proporcionando SSR para SEO (portal del candidato) y React Server Components para rendimiento optimo
+- **Evolución tecnológica**: El servicio de IA puede usar Python/FastAPI mientras el core usa Node.js
+- **Next.js como BFF**: El frontend Next.js actúa también como Backend-for-Frontend, con Route Handlers que orquestan llamadas a los microservicios, proporcionando SSR para SEO (portal del candidato) y React Server Components para rendimiento óptimo
 
 ### 7.2 Componentes Principales
 
-| Componente | Responsabilidad | Tecnologia |
+| Componente | Responsabilidad | Tecnología |
 |------------|----------------|------------|
 | **Frontend + BFF (Next.js)** | Interfaz de usuario con SSR/RSC, workspace colaborativo en tiempo real, y capa BFF via Route Handlers que orquesta llamadas a microservicios | Next.js 16 (App Router), TypeScript, TailwindCSS, Yjs (CRDT) |
 | **API Gateway** | Enrutamiento a microservicios backend, rate limiting, cache | Kong / AWS API Gateway |
-| **Auth Service** | Autenticacion, autorizacion, SSO, gestion de sesiones | Node.js, NextAuth.js, JWT |
-| **Job Service** | Gestion de posiciones, publicacion multicanal, pipeline | Node.js, Express |
-| **Candidate Service** | Gestion de candidatos, aplicaciones, deduplicacion | Node.js, Express |
+| **Auth Service** | Autenticación, autorización, SSO, gestión de sesiones | Node.js, NextAuth.js, JWT |
+| **Job Service** | Gestión de posiciones, publicación multicanal, pipeline | Node.js, Express |
+| **Candidate Service** | Gestión de candidatos, aplicaciones, deduplicación | Node.js, Express |
 | **Collaboration Service** | Workspace en tiempo real, presencia, scorecards | Node.js, Socket.io, Yjs |
-| **AI Service** | Screening, matching, generacion de texto, predicciones | Python, FastAPI, LangChain |
+| **AI Service** | Screening, matching, generación de texto, predicciones | Python, FastAPI, LangChain |
 | **Notification Service** | Emails, push, in-app, webhooks | Node.js, Bull queues |
 | **Automation Service** | Motor de reglas, workflows, triggers | Node.js, Temporal.io |
-| **Analytics Service** | Metricas, dashboards, reportes, predicciones | Python, Apache Superset |
+| **Analytics Service** | Métricas, dashboards, reportes, predicciones | Python, Apache Superset |
 | **Integration Service** | Conectores con job boards, calendarios, HRIS | Node.js, Express |
 
 ### 7.3 Bases de Datos
 
-| Base de Datos | Uso | Tecnologia |
+| Base de Datos | Uso | Tecnología |
 |---------------|-----|------------|
 | **DB Principal** | Datos transaccionales (usuarios, jobs, candidatos, aplicaciones) | PostgreSQL |
 | **DB Documentos** | CVs parseados, perfiles enriquecidos, configuraciones complejas | MongoDB |
 | **Cache** | Sesiones, datos frecuentes, rate limiting | Redis |
-| **Busqueda** | Busqueda full-text de candidatos y posiciones | Elasticsearch |
-| **Cola de mensajes** | Comunicacion asincrona entre servicios | RabbitMQ / Amazon SQS |
+| **Búsqueda** | Búsqueda full-text de candidatos y posiciones | Elasticsearch |
+| **Cola de mensajes** | Comunicación asíncrona entre servicios | RabbitMQ / Amazon SQS |
 | **Almacenamiento** | CVs, archivos adjuntos, avatares | AWS S3 |
 
-### 7.4 Patrones de Diseno
+### 7.4 Patrones de Diseño
 
-- **API Gateway Pattern**: Punto de entrada unico para todos los clientes
-- **Event-Driven Architecture**: Comunicacion asincrona entre servicios via eventos (ej: "CandidateApplied" -> triggers en AI Service y Notification Service)
-- **CQRS**: Separacion de lectura/escritura en Analytics Service para dashboards de alto rendimiento
-- **Circuit Breaker**: Proteccion contra fallos en cascada entre servicios
-- **Saga Pattern**: Coordinacion de transacciones distribuidas (ej: proceso de contratacion end-to-end)
+- **API Gateway Pattern**: Punto de entrada único para todos los clientes
+- **Event-Driven Architecture**: Comunicación asíncrona entre servicios vía eventos (ej: "CandidateApplied" -> triggers en AI Service y Notification Service)
+- **CQRS**: Separación de lectura/escritura en Analytics Service para dashboards de alto rendimiento
+- **Circuit Breaker**: Protección contra fallos en cascada entre servicios
+- **Saga Pattern**: Coordinación de transacciones distribuidas (ej: proceso de contratación end-to-end)
 
 ### 7.5 Diagrama de Arquitectura de Alto Nivel
 
 ```mermaid
 graph TB
     subgraph "Clientes"
-        WEB["Aplicacion Web<br/>(Next.js SSR/RSC)"]
-        MOB["App Movil<br/>(React Native)"]
+        WEB["Aplicación Web<br/>(Next.js SSR/RSC)"]
+        MOB["App Móvil<br/>(React Native)"]
         PORTAL["Portal del Candidato<br/>(Next.js SSR)"]
     end
 
@@ -805,7 +805,7 @@ graph TB
         LLM["LLM Gateway<br/>(OpenAI/Claude)"]
     end
 
-    subgraph "Analitica"
+    subgraph "Analítica"
         ANALYTICS["Analytics Service<br/>Python"]
         SUPERSET["Apache Superset"]
     end
@@ -814,7 +814,7 @@ graph TB
         PG[("PostgreSQL<br/>Datos transaccionales")]
         MONGO[("MongoDB<br/>Documentos")]
         REDIS[("Redis<br/>Cache + Sessions")]
-        ES[("Elasticsearch<br/>Busqueda")]
+        ES[("Elasticsearch<br/>Búsqueda")]
         S3[("S3<br/>Archivos")]
     end
 
@@ -889,32 +889,32 @@ graph TB
 
 ## 8. Diagrama C4
 
-Profundizamos en el **AI Service**, incorporando de forma explicita su relacion con el motor de automatizacion para mantener consistencia con la propuesta funcional del sistema.
+Profundizamos en el **AI Service**, incorporando de forma explícita su relación con el motor de automatización para mantener consistencia con la propuesta funcional del sistema.
 
 ### 8.1 Nivel 1 - Contexto del Sistema
 
 ```mermaid
 graph TB
-    REC["<b>Reclutador</b><br/>Usa LTI para gestionar<br/>procesos de contratacion"]
-    HM["<b>Hiring Manager</b><br/>Evalua candidatos y<br/>toma decisiones"]
+    REC["<b>Reclutador</b><br/>Usa LTI para gestionar<br/>procesos de contratación"]
+    HM["<b>Hiring Manager</b><br/>Evalúa candidatos y<br/>toma decisiones"]
     CAND["<b>Candidato</b><br/>Aplica a posiciones<br/>e interactua con chatbot"]
 
     LTI["<b>LTI ATS</b><br/>Sistema de seguimiento<br/>de candidatos con IA"]
 
-    LI["<b>LinkedIn API</b><br/>Publicacion de ofertas<br/>e importacion de perfiles"]
+    LI["<b>LinkedIn API</b><br/>Publicación de ofertas<br/>e importación de perfiles"]
     JB["<b>Job Boards</b><br/>Indeed, Glassdoor,<br/>InfoJobs"]
     CAL["<b>Calendarios</b><br/>Google Calendar,<br/>Outlook"]
     EMAIL_SYS["<b>Servicio de Email</b><br/>AWS SES"]
     LLM_EXT["<b>Proveedor LLM</b><br/>OpenAI / Anthropic"]
 
     REC -->|"Crea ofertas, gestiona pipeline,<br/>revisa candidatos"| LTI
-    HM -->|"Evalua candidatos,<br/>aprueba ofertas"| LTI
+    HM -->|"Evalúa candidatos,<br/>aprueba ofertas"| LTI
     CAND -->|"Aplica a posiciones,<br/>chatea con bot"| LTI
 
     LTI -->|"Publica ofertas,<br/>importa perfiles"| LI
     LTI -->|"Publica ofertas"| JB
     LTI -->|"Programa entrevistas"| CAL
-    LTI -->|"Envia notificaciones"| EMAIL_SYS
+    LTI -->|"Envía notificaciones"| EMAIL_SYS
     LTI -->|"Genera texto, analiza CVs"| LLM_EXT
 
     style LTI fill:#4A90D9,color:#fff
@@ -936,15 +936,15 @@ graph TB
         NEXTJS["<b>Next.js App</b><br/>Next.js 16 (App Router)<br/>SSR/RSC + BFF Route Handlers"]
         AGW["<b>API Gateway</b><br/>Kong<br/>Routing, Auth, Rate Limiting"]
 
-        AUTH["<b>Auth Service</b><br/>Node.js + NextAuth.js<br/>Autenticacion y autorizacion"]
-        JOB["<b>Job Service</b><br/>Node.js<br/>Gestion de posiciones"]
-        CAND_SVC["<b>Candidate Service</b><br/>Node.js<br/>Gestion de candidatos"]
+        AUTH["<b>Auth Service</b><br/>Node.js + NextAuth.js<br/>Autenticación y autorización"]
+        JOB["<b>Job Service</b><br/>Node.js<br/>Gestión de posiciones"]
+        CAND_SVC["<b>Candidate Service</b><br/>Node.js<br/>Gestión de candidatos"]
         COLLAB["<b>Collaboration Service</b><br/>Node.js + Socket.io<br/>Tiempo real"]
-        AI_SVC["<b>AI Service</b><br/>Python / FastAPI<br/>IA y automatizacion"]
+        AI_SVC["<b>AI Service</b><br/>Python / FastAPI<br/>IA y automatización"]
         NOTIF["<b>Notification Service</b><br/>Node.js<br/>Emails, push, webhooks"]
         AUTO["<b>Automation Service</b><br/>Temporal.io<br/>Workflows"]
         INTEG["<b>Integration Service</b><br/>Node.js<br/>Conectores externos"]
-        ANALYTICS_SVC["<b>Analytics Service</b><br/>Python<br/>Metricas y reportes"]
+        ANALYTICS_SVC["<b>Analytics Service</b><br/>Python<br/>Métricas y reportes"]
 
         PG[("PostgreSQL")]
         MONGO[("MongoDB")]
@@ -992,7 +992,7 @@ graph TB
 
 ### 8.3 Nivel 3 - Componentes del AI Service
 
-Este es el desglose interno del **AI Service**, mostrando tambien su integracion con el **Automation Service** cuando las capacidades inteligentes disparan workflows operativos.
+Este es el desglose interno del **AI Service**, mostrando también su integración con el **Automation Service** cuando las capacidades inteligentes disparan workflows operativos.
 
 ```mermaid
 graph TB
@@ -1000,34 +1000,34 @@ graph TB
         API_LAYER["<b>AI API Controller</b><br/>FastAPI<br/>Endpoints REST para<br/>todos los servicios de IA"]
 
         subgraph "Core AI Components"
-            CV_PARSER["<b>CV Parser Engine</b><br/>Extraccion de datos<br/>estructurados de CVs<br/>(PDF, Word, texto)"]
+            CV_PARSER["<b>CV Parser Engine</b><br/>Extracción de datos<br/>estructurados de CVs<br/>(PDF, Word, texto)"]
 
-            MATCHER["<b>Candidate Matcher</b><br/>Calcula score de matching<br/>candidato-posicion<br/>(skills, experiencia, cultura)"]
+            MATCHER["<b>Candidate Matcher</b><br/>Calcula score de matching<br/>candidato-posición<br/>(skills, experiencia, cultura)"]
 
             JD_GEN["<b>Job Description Generator</b><br/>Genera y optimiza<br/>descripciones de puesto<br/>con lenguaje inclusivo"]
 
-            BIAS_DETECT["<b>Bias Detector</b><br/>Analiza textos y decisiones<br/>para detectar sesgos<br/>de genero, edad, origen"]
+            BIAS_DETECT["<b>Bias Detector</b><br/>Analiza textos y decisiones<br/>para detectar sesgos<br/>de género, edad, origen"]
 
-            PREDICTOR["<b>Predictive Analytics Engine</b><br/>Predice time-to-hire,<br/>probabilidad de aceptacion,<br/>riesgo de abandono"]
+            PREDICTOR["<b>Predictive Analytics Engine</b><br/>Predice time-to-hire,<br/>probabilidad de aceptación,<br/>riesgo de abandono"]
 
             CHATBOT["<b>Candidate Chatbot</b><br/>Asistente conversacional<br/>para candidatos<br/>(FAQ, estado, scheduling)"]
 
-            WF_ORCH["<b>Workflow Recommendation Engine</b><br/>Sugiere o dispara<br/>automatizaciones segun<br/>eventos y predicciones"]
+            WF_ORCH["<b>Workflow Recommendation Engine</b><br/>Sugiere o dispara<br/>automatizaciones según<br/>eventos y predicciones"]
         end
 
         subgraph "AI Infrastructure"
-            LLM_GW["<b>LLM Gateway</b><br/>Abstraccion sobre<br/>proveedores de LLM<br/>(OpenAI, Claude, local)"]
+            LLM_GW["<b>LLM Gateway</b><br/>Abstracción sobre<br/>proveedores de LLM<br/>(OpenAI, Claude, local)"]
 
-            EMB_SVC["<b>Embedding Service</b><br/>Genera embeddings<br/>de CVs y posiciones<br/>para busqueda semantica"]
+            EMB_SVC["<b>Embedding Service</b><br/>Genera embeddings<br/>de CVs y posiciones<br/>para búsqueda semántica"]
 
-            MODEL_REG["<b>Model Registry</b><br/>Gestion de versiones<br/>de modelos ML<br/>propios"]
+            MODEL_REG["<b>Model Registry</b><br/>Gestión de versiones<br/>de modelos ML<br/>propios"]
 
             PROMPT_MGR["<b>Prompt Manager</b><br/>Templates y versionado<br/>de prompts para<br/>cada tarea"]
         end
 
         subgraph "Data & Storage"
             VECTOR_DB[("Vector DB<br/>(Pinecone/Pgvector)<br/>Embeddings")]
-            AI_MONGO[("MongoDB<br/>CVs parseados,<br/>historico de predicciones")]
+            AI_MONGO[("MongoDB<br/>CVs parseados,<br/>histórico de predicciones")]
             AI_CACHE[("Redis Cache<br/>Resultados frecuentes")]
         end
     end
@@ -1088,34 +1088,34 @@ graph TB
     style PROMPT_MGR fill:#FFB3B3,color:#333
 ```
 
-### 8.3.1 Descripcion de los Componentes del AI Service
+### 8.3.1 Descripción de los Componentes del AI Service
 
 | Componente | Responsabilidad | Interfaces |
 |------------|----------------|------------|
 | **AI API Controller** | Punto de entrada REST y consumidor de eventos. Orquesta las llamadas a los componentes internos | REST API, RabbitMQ consumer |
 | **CV Parser Engine** | Extrae datos estructurados de CVs en cualquier formato. Utiliza OCR + LLM para interpretar contenido | Input: archivo CV; Output: JSON estructurado |
-| **Candidate Matcher** | Calcula score de compatibilidad entre candidato y posicion usando embeddings semanticos y reglas de negocio | Input: candidato + posicion; Output: score 0-100 + desglose |
-| **Job Description Generator** | Genera descripciones de puesto optimizadas a partir de requisitos basicos, incluyendo revision de sesgo | Input: requisitos; Output: JD completa |
-| **Bias Detector** | Analiza textos (JDs, evaluaciones) y patrones de decision para identificar sesgos inconscientes | Input: texto/datos; Output: alertas + sugerencias |
-| **Predictive Analytics Engine** | Modelos ML propios que predicen metricas de contratacion basados en datos historicos | Input: posicion + pipeline; Output: predicciones |
+| **Candidate Matcher** | Calcula score de compatibilidad entre candidato y posición usando embeddings semánticos y reglas de negocio | Input: candidato + posición; Output: score 0-100 + desglose |
+| **Job Description Generator** | Genera descripciones de puesto optimizadas a partir de requisitos básicos, incluyendo revisión de sesgo | Input: requisitos; Output: JD completa |
+| **Bias Detector** | Analiza textos (JDs, evaluaciones) y patrones de decisión para identificar sesgos inconscientes | Input: texto/datos; Output: alertas + sugerencias |
+| **Predictive Analytics Engine** | Modelos ML propios que predicen métricas de contratación basados en datos históricos | Input: posición + pipeline; Output: predicciones |
 | **Candidate Chatbot** | Asistente conversacional para candidatos que responde FAQs, informa del estado y agenda entrevistas | Input: mensaje; Output: respuesta + acciones |
-| **Workflow Recommendation Engine** | Traduce hallazgos de IA y eventos del pipeline en recomendaciones o triggers hacia el motor de automatizacion | Input: eventos + predicciones; Output: acciones sugeridas o disparadas |
-| **LLM Gateway** | Capa de abstraccion sobre proveedores de LLM con fallback, retry, caching y monitoring de costes | Soporta OpenAI, Anthropic, modelos locales |
-| **Embedding Service** | Genera y gestiona embeddings vectoriales de CVs y posiciones para busqueda semantica | Almacena en Vector DB (Pinecone/pgvector) |
+| **Workflow Recommendation Engine** | Traduce hallazgos de IA y eventos del pipeline en recomendaciones o triggers hacia el motor de automatización | Input: eventos + predicciones; Output: acciones sugeridas o disparadas |
+| **LLM Gateway** | Capa de abstracción sobre proveedores de LLM con fallback, retry, caching y monitoring de costes | Soporta OpenAI, Anthropic, modelos locales |
+| **Embedding Service** | Genera y gestiona embeddings vectoriales de CVs y posiciones para búsqueda semántica | Almacena en Vector DB (Pinecone/pgvector) |
 | **Model Registry** | Gestiona versiones de modelos ML propios, A/B testing y rollback | MLflow compatible |
 | **Prompt Manager** | Almacena, versiona y optimiza los prompts utilizados por cada componente de IA | Templates Jinja2 + versionado |
 
 ---
 
-## Apendice: Tecnologias y Herramientas
+## Apéndice: Tecnologías y Herramientas
 
-| Capa | Tecnologia |
+| Capa | Tecnología |
 |------|------------|
 | Frontend + BFF | Next.js 16 (App Router, RSC, SSR), TypeScript, TailwindCSS, Yjs (CRDT) |
 | Backend (microservicios) | Node.js 20+, Express/Fastify, TypeScript |
 | AI/ML | Python 3.11+, FastAPI, LangChain, scikit-learn, Hugging Face |
 | Bases de datos | PostgreSQL 16, MongoDB 7, Redis 7, Elasticsearch 8 |
-| Mensajeria | RabbitMQ 3.13 |
+| Mensajería | RabbitMQ 3.13 |
 | Infraestructura | AWS (ECS/EKS, RDS, S3, SES, CloudFront), Terraform |
 | CI/CD | GitHub Actions, Docker, ArgoCD |
 | Observabilidad | Datadog / Grafana + Prometheus, Sentry |

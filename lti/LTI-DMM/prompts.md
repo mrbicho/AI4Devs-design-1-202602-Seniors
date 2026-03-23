@@ -1,10 +1,10 @@
 # Prompts utilizados para el diseño de LTI ATS
 
-A continuacion se documentan todos los prompts utilizados con Claude (Anthropic) para generar cada uno de los artefactos del documento de diseno.
+A continuación se documentan todos los prompts utilizados con Claude (Anthropic) para generar cada uno de los artefactos del documento de diseño.
 
 ---
 
-## Prompt 1: Investigacion, analisis y requisitos iniciales
+## Prompt 1: Investigación, análisis y requisitos iniciales
 
 ```
 Actúa como un Product Manager senior especializado en HR Tech y diseño de productos SaaS B2B.
@@ -23,7 +23,7 @@ Devuélvelo en formato claro para incorporarlo a una documentación de análisis
 
 ---
 
-## Prompt 2: Descripcion del software, valor anadido y ventajas competitivas
+## Prompt 2: Descripción del software, valor añadido y ventajas competitivas
 
 ```
 Actúa como un Product Manager senior especializado en software de recursos humanos (HR Tech).
@@ -140,7 +140,7 @@ Asegúrate de que el modelo soporte los casos de uso definidos anteriormente.
 
 ---
 
-## Prompt 7: Diseno del sistema a alto nivel
+## Prompt 7: Diseño del sistema a alto nivel
 
 ```
 Diseña la arquitectura de alto nivel del sistema LTI ATS. Necesito:
